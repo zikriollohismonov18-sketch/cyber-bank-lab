@@ -3,321 +3,327 @@
 <html lang="tg">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyber Bank Lab</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cyber Bank Lab V4</title>
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:#080f1e;
+ color:#fff;
+ font-family:Arial,sans-serif;
 }
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #080f1e;
-  color: white;
+header{
+ padding:25px;
+ background:#111c30;
+ text-align:center;
 }
-
-header {
-  padding: 22px;
-  text-align: center;
-  background: #111c30;
-  border-bottom: 1px solid #26364e;
+h1{color:#38bdf8;margin:0}
+main{max-width:850px;margin:auto;padding:18px}
+.cards{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
 }
-
-header h1 {
-  margin: 0;
-  color: #38bdf8;
+.card{
+ background:linear-gradient(135deg,#075985,#172554);
+ padding:22px;
+ border-radius:20px;
 }
-
-.container {
-  max-width: 650px;
-  margin: auto;
-  padding: 20px;
+.card h2{font-size:28px}
+.panel{
+ background:#111c30;
+ padding:20px;
+ margin-top:16px;
+ border-radius:16px;
 }
-
-.bank-card {
-  background: linear-gradient(135deg, #075985, #172554);
-  border-radius: 24px;
-  padding: 28px;
-  margin-bottom: 20px;
+button,input,select{
+ width:100%;
+ padding:13px;
+ border:0;
+ border-radius:9px;
+ margin-top:10px;
+ font-size:16px;
 }
-
-.balance {
-  font-size: 36px;
-  font-weight: bold;
-  margin: 20px 0;
+button{
+ background:#0284c7;
+ color:white;
+ cursor:pointer;
 }
-
-.panel {
-  background: #111c30;
-  padding: 20px;
-  border-radius: 16px;
-  margin-bottom: 18px;
+input,select{
+ background:#26354d;
+ color:white;
 }
-
-button, select {
-  width: 100%;
-  padding: 14px;
-  border: 0;
-  border-radius: 10px;
-  font-size: 16px;
-  margin-top: 12px;
+input[type=checkbox]{width:auto}
+.red{background:#be123c}
+.gray{background:#334155}
+small{color:#a5b4cc}
+.notice{color:#fbbf24}
+.event{
+ padding:12px 0;
+ border-bottom:1px solid #334155;
 }
-
-select {
-  background: #233149;
-  color: white;
-}
-
-button {
-  background: #0284c7;
-  color: white;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #0369a1;
-}
-
-.reset {
-  background: #334155;
-}
-
-.success {
-  color: #4ade80;
-}
-
-.error {
-  color: #fb7185;
-}
-
-.notice {
-  color: #fbbf24;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.transaction {
-  padding: 12px 0;
-  border-bottom: 1px solid #334155;
-  line-height: 1.6;
-}
-
-small {
-  color: #94a3b8;
+@media(max-width:500px){
+ .cards{grid-template-columns:1fr}
 }
 </style>
 </head>
-
 <body>
 
 <header>
-  <h1>🛡 Cyber Bank Lab</h1>
-  <p>Озмоишгоҳи амнияти бонкӣ</p>
+<h1>🛡 CYBER BANK V4</h1>
+<p>Озмоишгоҳи амнияти бонкӣ</p>
 </header>
 
-<div class="container">
+<main>
 
-  <div class="bank-card">
-    <small>CYBER BANK — DEMO</small>
-    <div class="balance" id="balance">
-      1000.00 TJS
-    </div>
-    <h3>DEMO •••• 0001</h3>
-    <p>VIRTUAL TEST CARD</p>
-  </div>
+<p class="notice">
+DEMO — Ҳамаи маблағҳо виртуалӣ мебошанд.
+</p>
 
-  <div class="panel">
-    <h2>💳 Пардохти озмоишӣ</h2>
+<div class="cards">
 
-    <p>Маблағ: 10 сомонӣ</p>
+<div class="card">
+<small>ҲИСОБИ A — DEMO</small>
+<h2 id="a">1000.00 TJS</h2>
+<p>DEMO-A</p>
+</div>
 
-    <label>Ҳолати озмоиширо интихоб кунед:</label>
-
-    <select id="scenario">
-      <option value="normal">
-        Пардохти муқаррарӣ
-      </option>
-      <option value="unverified">
-        Пардохти тасдиқнашуда
-      </option>
-      <option value="suspicious">
-        Амалиёти шубҳанок
-      </option>
-      <option value="blocked">
-        Корти масдудшуда
-      </option>
-    </select>
-
-    <button onclick="testPayment()">
-      Санҷидани пардохт
-    </button>
-
-    <div id="approval" hidden>
-      <p>Оё соҳиби корти виртуалӣ пардохтро тасдиқ мекунад?</p>
-
-      <button onclick="approvePayment()">
-        Тасдиқ кардан
-      </button>
-
-      <button class="reset" onclick="rejectPayment()">
-        Рад кардан
-      </button>
-    </div>
-
-    <p id="result" role="status"></p>
-  </div>
-
-  <div class="panel">
-    <h2>🔐 Системаи амниятӣ</h2>
-
-    <p>3D Secure Simulation: фаъол</p>
-    <p>Anti-Fraud Simulation: фаъол</p>
-    <p>Муҳофизати баланс: фаъол</p>
-
-    <p class="notice">
-      Ин танҳо муҳити омӯзишӣ аст.
-      Пул ва корт воқеӣ нестанд.
-    </p>
-  </div>
-
-  <div class="panel">
-    <h2>📊 Таърихи амалиёт</h2>
-    <div id="history">
-      Ҳоло амалиёт вуҷуд надорад.
-    </div>
-  </div>
-
-  <button class="reset" onclick="resetLab()">
-    Аз нав оғоз кардан
-  </button>
+<div class="card">
+<small>ҲИСОБИ B — DEMO</small>
+<h2 id="b">500.00 TJS</h2>
+<p>DEMO-B</p>
+</div>
 
 </div>
 
+<section class="panel">
+<h2>💸 Интиқоли виртуалӣ</h2>
+
+<input id="amount" type="number"
+min="0.01" step="0.01"
+placeholder="Маблағи виртуалӣ">
+
+<p>
+<label>
+<input type="checkbox" id="approved">
+Тасдиқи соҳиби ҳисоби озмоишӣ
+</label>
+</p>
+
+<button onclick="transfer()">
+Интиқол аз A ба B
+</button>
+
+<button onclick="payment()">
+Пардохти виртуалӣ — 10 TJS
+</button>
+
+<p id="result" role="status"></p>
+</section>
+
+<section class="panel">
+<h2>🛡 Маркази амниятӣ</h2>
+
+<select id="scenario">
+<option value="normal">
+Амалиёти муқаррарӣ
+</option>
+<option value="unauthorized">
+Амалиёти тасдиқнашуда
+</option>
+<option value="fraud">
+Огоҳии қаллобӣ
+</option>
+<option value="login">
+Воридшавии шубҳанок
+</option>
+</select>
+
+<button onclick="securityTest()">
+Санҷиши амниятӣ
+</button>
+
+<p>Санҷишҳо: <b id="tests">0</b></p>
+<p>Радшуда: <b id="denied">0</b></p>
+
+</section>
+
+<section class="panel">
+<h2>⚙ Панели администратор</h2>
+
+<p>Ҳолати ҳисоби A:
+<b id="state">Фаъол</b>
+</p>
+
+<button class="red" onclick="toggleLock()">
+Масдуд / фаъол кардани ҳисоб
+</button>
+
+</section>
+
+<section class="panel">
+<h2>📊 Таърихи амалиёт</h2>
+<div id="history">Ҳоло амалиёт нест.</div>
+</section>
+
+<button class="gray" onclick="resetLab()">
+Аз нав оғоз кардан
+</button>
+
+</main>
+
 <script>
+let a=100000;
+let b=50000;
+let locked=false;
+let tests=0;
+let denied=0;
+let events=[];
 
-let balance = 1000;
-let pending = false;
-let transactions = [];
-
-function updateBalance() {
-  document.getElementById("balance").textContent =
-    balance.toFixed(2) + " TJS";
+function el(id){
+ return document.getElementById(id);
 }
 
-function showResult(message, success) {
-  const result = document.getElementById("result");
-
-  result.textContent = message;
-  result.className = success ? "success" : "error";
+function money(cents){
+ return (cents/100).toFixed(2)+" TJS";
 }
 
-function addHistory(message) {
-  transactions.unshift({
-    message: message,
-    time: new Date().toLocaleTimeString()
-  });
+function render(){
+ el("a").textContent=money(a);
+ el("b").textContent=money(b);
+ el("state").textContent=
+ locked?"Масдуд":"Фаъол";
+ el("tests").textContent=tests;
+ el("denied").textContent=denied;
 
-  const history = document.getElementById("history");
-  history.replaceChildren();
+ const h=el("history");
+ h.replaceChildren();
 
-  transactions.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "transaction";
+ if(events.length===0){
+  h.textContent="Ҳоло амалиёт нест.";
+ }
 
-    const title = document.createElement("div");
-    title.textContent = item.message;
-
-    const time = document.createElement("small");
-    time.textContent = item.time;
-
-    div.append(title, time);
-    history.appendChild(div);
-  });
+ events.forEach(event=>{
+  const div=document.createElement("div");
+  div.className="event";
+  div.textContent=event;
+  h.appendChild(div);
+ });
 }
 
-function closeApproval() {
-  pending = false;
-  document.getElementById("approval").hidden = true;
+function log(message){
+ events.unshift(
+  new Date().toLocaleTimeString()+
+  " — "+message
+ );
+ render();
 }
 
-function testPayment() {
-  closeApproval();
-
-  const scenario =
-    document.getElementById("scenario").value;
-
-  if (scenario === "unverified") {
-    showResult("❌ Пардохт тасдиқ нашудааст.", false);
-    addHistory("Пардохт рад шуд");
-    return;
-  }
-
-  if (scenario === "suspicious") {
-    showResult("🛡 Anti-Fraud: амалиёт масдуд шуд.", false);
-    addHistory("Амалиёти шубҳанок масдуд шуд");
-    return;
-  }
-
-  if (scenario === "blocked") {
-    showResult("❌ Корти виртуалӣ масдуд аст.", false);
-    addHistory("Пардохт рад шуд: корти масдуд");
-    return;
-  }
-
-  if (balance < 10) {
-    showResult("❌ Баланс нокифоя аст.", false);
-    return;
-  }
-
-  pending = true;
-  document.getElementById("approval").hidden = false;
-
-  showResult("Тасдиқи соҳиби корти виртуалӣ лозим аст.", true);
+function result(message){
+ el("result").textContent=message;
 }
 
-function approvePayment() {
-  if (!pending || balance < 10) {
-    closeApproval();
-    return;
-  }
+function authorize(){
+ if(locked){
+  result("⛔ Ҳисоб масдуд аст.");
+  log("Амалиёт рад шуд: ҳисоб масдуд");
+  return false;
+ }
 
-  closeApproval();
+ if(!el("approved").checked){
+  result("⛔ Тасдиқи соҳиб лозим аст.");
+  log("Амалиёти тасдиқнашуда рад шуд");
+  return false;
+ }
 
-  balance -= 10;
-  updateBalance();
-
-  showResult("✅ Пардохти виртуалӣ муваффақ шуд!", true);
-
-  addHistory("Пардохти тасдиқшуда: -10 TJS");
+ return true;
 }
 
-function rejectPayment() {
-  if (!pending) return;
+function transfer(){
+ if(!authorize())return;
 
-  closeApproval();
+ const raw=el("amount").value.trim();
 
-  showResult("❌ Соҳиби корт пардохтро рад кард.", false);
+ if(!/^\d+(\.\d{1,2})?$/.test(raw)){
+  result("Маблағ нодуруст аст.");
+  return;
+ }
 
-  addHistory("Пардохт аз ҷониби соҳиб рад шуд");
+ const n=Math.round(Number(raw)*100);
+
+ if(!Number.isSafeInteger(n)||n<=0||n>a){
+  result("Маблағ нодуруст ё баланс нокифоя.");
+  return;
+ }
+
+ a-=n;
+ b+=n;
+ el("approved").checked=false;
+
+ result("✅ Интиқоли виртуалӣ иҷро шуд.");
+ log("Интиқол A → B: "+money(n));
 }
 
-function resetLab() {
-  balance = 1000;
-  transactions = [];
+function payment(){
+ if(!authorize())return;
 
-  closeApproval();
-  updateBalance();
+ if(a<1000){
+  result("Баланс нокифоя аст.");
+  return;
+ }
 
-  document.getElementById("history").textContent =
-    "Ҳоло амалиёт вуҷуд надорад.";
+ a-=1000;
+ el("approved").checked=false;
 
-  document.getElementById("result").textContent = "";
+ result("✅ Пардохти виртуалӣ иҷро шуд.");
+ log("Пардохт: -10.00 TJS");
 }
 
+function securityTest(){
+ tests++;
+
+ const scenario=el("scenario").value;
+
+ if(locked){
+  denied++;
+  log("Санҷиш: ҳисоб масдуд аст");
+  return;
+ }
+
+ if(scenario==="normal"){
+  log("Санҷиш: амалиёти муқаррарӣ");
+ }else{
+  denied++;
+  log("Санҷиш: амалиёти шубҳанок рад шуд");
+ }
+}
+
+function toggleLock(){
+ locked=!locked;
+ el("approved").checked=false;
+
+ log(locked?
+ "Ҳисоби виртуалӣ масдуд шуд":
+ "Ҳисоби виртуалӣ фаъол шуд");
+}
+
+function resetLab(){
+ a=100000;
+ b=50000;
+ locked=false;
+ tests=0;
+ denied=0;
+ events=[];
+
+ el("amount").value="";
+ el("approved").checked=false;
+ result("");
+ render();
+}
+
+render();
 </script>
 
 </body>
 </html>
-# cyber-bank-lab
